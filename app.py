@@ -1,8 +1,16 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import sqlite3, os
 from datetime import datetime
 
+
 app = Flask(__name__)
+# Allow browsers to call anything under /api/*
+CORS(
+    app,
+    resources={r"/api/*": {"origins": "*"}},
+    supports_credentials=False
+)
 
 DB_PATH = "transactions.db"
 API_KEY = os.getenv("API_KEY", "changeme")  # set this in DigitalOcean later
